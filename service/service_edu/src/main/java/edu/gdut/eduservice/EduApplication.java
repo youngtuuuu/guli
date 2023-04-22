@@ -2,6 +2,7 @@ package edu.gdut.eduservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * 作者: xieburou
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 概括:
  */
 @SpringBootApplication
+@ComponentScan(basePackages = "edu.gdut")
 public class EduApplication {
     public static void main(String[] args) {
         SpringApplication.run(EduApplication.class,args);
