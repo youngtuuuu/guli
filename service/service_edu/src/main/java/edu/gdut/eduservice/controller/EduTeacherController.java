@@ -8,6 +8,7 @@ import edu.gdut.eduservice.entity.EduTeacher;
 import edu.gdut.eduservice.entity.vo.TeacherQuery;
 import edu.gdut.eduservice.mapper.EduTeacherMapper;
 import edu.gdut.eduservice.service.EduTeacherService;
+import edu.gdut.servicebase.myexception.MyExceptionTest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -118,6 +119,11 @@ public class EduTeacherController {
     @ApiOperation(value = "根据id讲师")
     @GetMapping("getTeacher/{teacherId}")
     public R getTeacher(@PathVariable String teacherId){
+        try{
+            int i = 10/0;
+        }catch (Exception e){
+            throw new MyExceptionTest(20001,"自定义异常");
+        }
 
         EduTeacher eduTeacher = eduTeacherService.getById(teacherId);
         return R.ok().data("teacher",eduTeacher);

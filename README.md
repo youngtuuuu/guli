@@ -1,3 +1,5 @@
+
+
 # 项目背景
 
 ## 前景
@@ -17,13 +19,13 @@
 	</center>
 </div>
 
-## 技术点
+# 后端
 
 * 后端：Spring Boot、Spring Cloud、Mybatis-Plus、Spring Security、Redis、Maven、EasyExcel、JWT、OAuth2
 * 前端：HTML5、CSS、Vue.js、Element-ui、Axios、Node.js
 * 其他：阿里云oss、阿里云视频点播服务、阿里云短信服务、微信登录和支付、Git、Docker、Jenkins
 
-### MyBatis-Plus
+## MyBatis-Plus
 
 MyBatis-Plus（ 简称 MP）是一个MyBatis 的增强工具，在MyBatis 的基础上只做增强不做政变，为简化开发、提高开发效率
 
@@ -31,17 +33,17 @@ MyBatis-Plus（ 简称 MP）是一个MyBatis 的增强工具，在MyBatis 的基
 2. 在`UserMapper`类上添加注解`@Repository`让其注入例子
 
 
-#### 主键策略
+### 主键策略
 
 [分布式系统唯一ID生成方案汇总](https://www.cnblogs.com/haoxinyue/p/5208136.html)
 
-#### 自动填充
+### 自动填充
 
 1. 在实体类对应的属性上添加注解`@TableFiele()`
 2. 创建类，实现接口`Meta0bjectHandler`，实现现接口里面的方法
 3. 通过`Meta0bjectHandler`里面的方法来实现自动填充
 
-#### 乐观锁
+### 乐观锁
 
 **解释：**并行处理事务，其中会使用到一个字段`Version=初始值`，如果有A和B同时操作一个表，当A操作完成，会检查`Version`是不是等于初始值，如果是，提交事务，`Version+1`。当B操作完成要提交时，同样检查`Version`是不是等于初始值，此时发现`Version=初始值+1`不等于初始值，那么无法提交。
 
@@ -51,7 +53,7 @@ MyBatis-Plus（ 简称 MP）是一个MyBatis 的增强工具，在MyBatis 的基
 
 与之对应的悲观锁，串行操作：一次只能同时进行最多一个进程
 
-#### 分页查询
+### 分页查询
 
 1. 先在配置类中加入分页查询插件`PaginationInterceptor`
 
@@ -83,7 +85,7 @@ MyBatis-Plus（ 简称 MP）是一个MyBatis 的增强工具，在MyBatis 的基
    ~~~
    
    
-#### 删除操作
+### 删除操作
 
 1. **物理删除：**直接用Mapper的`deleteById`等方法
 2. **逻辑删除：**在配置类中添加`ISqlInjector`插件，**物理删除**的作用即被转化
@@ -96,7 +98,7 @@ MyBatis-Plus（ 简称 MP）是一个MyBatis 的增强工具，在MyBatis 的基
     }
 ~~~
 
-#### 性能分析
+### 性能分析
 
 1. 三种环境，`@Profile({"dev”,,"test"})`
 
@@ -108,7 +110,7 @@ MyBatis-Plus（ 简称 MP）是一个MyBatis 的增强工具，在MyBatis 的基
 
 springboot配置：`spring.profiles.active=dev `
 
-#### 条件查询
+### 条件查询
 
 有多种查询条件，通过下面代码(`wrapper`)来实现：
 
@@ -123,7 +125,7 @@ void selectTest(){
     }
 ~~~
 
-#### 代码生成器
+### 代码生成器
 
 可以添加在`Test`包里，直接运行即可自动生成
 
@@ -219,12 +221,12 @@ public class CodeGenerator {
 
 
 
-### Spring Boot
+## Spring Boot
 
 1. 通过`@Autowired`来自动注入依赖
 2. 通过主程序添加注解`@MapperScan`来扫描`Mapper`包
 
-#### 查询
+### 查询
 
 通过`service.list()`查询
 
@@ -232,9 +234,9 @@ public class CodeGenerator {
 2. 分页查询带条件
    * 创建`vo`条件类
 
-#### 删除（逻辑）
+### 删除（逻辑）
 
-配置一个`DeleteMapping`，中间需要一个`{id}`占位符获取路径参数。路径参数`xxx/xxx/var`，逻辑删除操作见[逻辑删除](####删除操作)
+配置一个`DeleteMapping`，中间需要一个`{id}`占位符获取路径参数。路径参数`xxx/xxx/var`，逻辑删除操作见[逻辑删除](###删除操作)
 
 1. 配置*swagger*来测试删除请求
 
@@ -288,7 +290,7 @@ public class CodeGenerator {
 
 3. 
 
-#### 统一
+### 统一
 
 1. 统一返回`R`：
 
@@ -309,15 +311,61 @@ public class CodeGenerator {
 
 
 2. 统一异常处理：
+   1. 全局异常
+   1. 特定异常
+   1. 自定义异常
 
+3. 统一日志处理
+	* 配置日志记录器级别
+	* 配置spring自带的**logback工具**
+	* 将异常输出
    
+         ~~~properties
+          #设置日志级别
+          logging.level.root=WARN
+         ~~~
 
-### 数据库设计
+<div>
+   <center>
+   	<img
+          src="https://p.ipic.vip/ydg4op.png"
+          style="zoom:70%"
+          /><br>
+     日志记录器的日志级别
+   </center>
+		</div>
+
+ <div>
+	<center>
+    	<img
+         src="https://p.ipic.vip/5z4jhl.png"
+         style="zoom:50%"
+         /><br>
+     更改之后，INFO级别的日志不会显示
+  </center>
+</div>          
+
+ <div>
+	<center>
+    	<img
+         src="https://p.ipic.vip/aq7zf1.png"
+         style="zoom:50%"
+         /><br>
+     配置异常输出
+  </center>
+</div> 
+​      
+
+
+## 数据库设计
 
 1. [阿里巴巴开发手册](https://developer.aliyun.com/special/tech-java)
 
-### 开发工具
+## 开发工具
 
-#### Lombok
+### Lombok
 
 1. 通过给`pojo`添加注解`@Data`来实现省去构造方法和*setterandgetter*
+
+# 前端
+
