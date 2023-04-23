@@ -228,6 +228,10 @@ public class CodeGenerator {
 
 通过`service.list()`查询
 
+1. 分页查询，见之前
+2. 分页查询带条件
+   * 创建`vo`条件类
+
 #### 删除（逻辑）
 
 配置一个`DeleteMapping`，中间需要一个`{id}`占位符获取路径参数。路径参数`xxx/xxx/var`，逻辑删除操作见[逻辑删除](####删除操作)
@@ -281,6 +285,32 @@ public class CodeGenerator {
      ~~~
 
 2. 在需要用到`swagger`的类中引入该依赖，并且在用到`swagger`的类主启动程序中更改扫描包规则`@ComponentScan(basePackages = "edu.gdut")`
+
+3. 
+
+#### 统一
+
+1. 统一返回`R`：
+
+   1. 结果码
+
+      ~~~java
+      public interface ResultCode {
+          public static Integer SUCCESS = 20000;
+          public static Integer FAIL = 20001;
+      }
+      ~~~
+
+      
+
+   2. 引入统一返回类`R`
+
+   3. 统一返回`R`类及其**链式结果**
+
+
+2. 统一异常处理：
+
+   
 
 ### 数据库设计
 
